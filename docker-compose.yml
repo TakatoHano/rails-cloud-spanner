@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  spanner:
+    image: gcr.io/cloud-spanner-emulator/emulator:1.2.0
+    ports:
+      - "9010:9010"
+      - "9020:9020"
+
+  create-instance:
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:332.0.0-slim
+    command: >
+      bash -c 'gcloud config configurations create emulator &&
+              gcloud config set auth/disable_credentials true &&
+              gcloud config set project $${PROJECT_ID} &&
+              gcloud config set api_endpoint_overrides/spanner $${SPANNER_EMULATOR_URL} &&
+              gcloud config set auth/disable_credentials true &&
+              gcloud spanner instances create $${INSTANCE_NAME} --config=emulator-config --description=Emulator --nodes=1'
+    environment:
+      PROJECT_ID: project-dev
+      SPANNER_EMULATOR_URL: http://spanner:9020/
+      INSTANCE_NAME: test-instance
+  web_app:
+    build: .
+    volumes:
+      - .:/web_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - spanner
+    environment:
+      SPANNER_HOST: spanner:9010
+      SPANNER_INSTANCE: test-instance
+      GCP_PROJECT: project-dev
+      RAILS_ENV: development
