@@ -7,5 +7,5 @@ COPY Gemfile.lock /web_app/Gemfile.lock
 RUN bundle install
 COPY . /web_app
 
-
-# CMD ["rails", "server", "-b", "0.0.0.0"]
+EXPOSE 3000
+CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]

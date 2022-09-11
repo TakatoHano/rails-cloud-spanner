@@ -19,8 +19,10 @@ services:
       PROJECT_ID: project-dev
       SPANNER_EMULATOR_URL: http://spanner:9020/
       INSTANCE_NAME: test-instance
+
   web_app:
     build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/web_app
     ports:
