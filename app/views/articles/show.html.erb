@@ -10,6 +10,9 @@
   } %></li>
 </ul>
 <h2>Comments</h2>
+<% if @article.comments.length.zero? %>
+    no comment.
+<% end %>
 <%= render @article.comments %>
 
 <h2>Add a comment:</h2>

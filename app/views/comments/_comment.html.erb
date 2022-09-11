@@ -14,4 +14,11 @@
     <%= comment.created_at %>
     </p>
 
+    <p>
+    <%= link_to "Delete Comment", [comment.article, comment], data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                } %>
+  </p>
+
 <% end %>
