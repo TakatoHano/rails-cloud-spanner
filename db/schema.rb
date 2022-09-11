@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_11_052115) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_11_073124) do
   create_table "articles", id: { limit: 8 }, force: :cascade do |t|
     t.string "title"
     t.string "body"
     t.time "created_at", null: false
     t.time "updated_at", null: false
+    t.string "status"
   end
 
   create_table "comments", id: { limit: 8 }, force: :cascade do |t|
@@ -24,6 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_052115) do
     t.integer "article_id", limit: 8, null: false
     t.time "created_at", null: false
     t.time "updated_at", null: false
+    t.string "status"
   end
 
   add_foreign_key "comments", "articles"
