@@ -6,7 +6,7 @@ services:
       - "9010:9010"
       - "9020:9020"
 
-  create-instance:
+  create_instance:
     image: gcr.io/google.com/cloudsdktool/cloud-sdk:332.0.0-slim
     command: >
       bash -c 'gcloud config configurations create emulator &&
