@@ -1,0 +1,32 @@
+steps:
+  - id: "build image"
+    name: "gcr.io/cloud-builders/docker"
+    entrypoint: 'bash'
+    args: ["-c", "docker build --build-arg MASTER_KEY=$$RAILS_MASTER_KEY -t gcr.io/${PROJECT_ID}/rails-cloud-spanner . "]
+    secretEnv: ["RAILS_MASTER_KEY"]
+
+  - id: "push image"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/${PROJECT_ID}/rails-cloud-spanner"]
+
+  - id: "apply migrations"
+    name: "gcr.io/google-appengine/exec-wrapper"
+    entrypoint: "bash"
+    args:
+      [
+        "-c",
+        "/buildstep/execute.sh -i gcr.io/${PROJECT_ID}/rails-cloud-spanner -e RAILS_ENV=production -e RAILS_MASTER_KEY=$$RAILS_MASTER_KEY -e SPANNER_INSTANCE=$_INSTANCE_NAME -- bundle exec rails db:migrate"
+      ]
+    secretEnv: ["RAILS_MASTER_KEY"]
+
+substitutions:
+  _INSTANCE_NAME: trial-1
+  _SECRET_NAME: rails-master-key
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/${PROJECT_ID}/secrets/${_SECRET_NAME}/versions/latest
+    env: RAILS_MASTER_KEY
+
+images:
+  - "gcr.io/${PROJECT_ID}/rails-cloud-spanner"

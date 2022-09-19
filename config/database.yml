@@ -7,7 +7,7 @@
 default: &default
   adapter: spanner
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  project: <%= ENV.fetch("GOOGLE_PROJECT") { "" } %>
+  project: <%= ENV.fetch("PROJECT_ID") { "" } %>
   instance: <%= ENV.fetch("SPANNER_INSTANCE") { "" } %>
   timeout: 5000
 

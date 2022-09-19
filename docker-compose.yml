@@ -32,5 +32,5 @@ services:
     environment:
       SPANNER_HOST: spanner:9010
       SPANNER_INSTANCE: test-instance
-      GOOGLE_PROJECT: project-dev
+      PROJECT_ID: project-dev
       RAILS_ENV: development
