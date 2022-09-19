@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-    @back_path = article_path
+    @back_path = articles_path
   end
 
   def create
