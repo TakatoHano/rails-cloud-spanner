@@ -29,6 +29,8 @@ deploy_cloud_run:
 	--image gcr.io/${PROJECT_ID}/rails-cloud-spanner \
 	--set-env-vars=PROJECT_ID=${PROJECT_ID},SPANNER_INSTANCE=trial-1,RAILS_ENV=production \
 	--port 3000 \
+	--concurrency=5 \
+	--max-instances=10 \
 	--allow-unauthenticated
 
 build_and_push:
