@@ -1,1 +1,7 @@
 config/master.key
+infra
+cloudbuild.yaml
+Dockerfile
+docker-compose.yml
+Makefile
+README.md
