@@ -9,6 +9,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    @back_path = article_path
   end
 
   def create
@@ -23,6 +24,7 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
+    @back_path = @article
   end
 
   def update
