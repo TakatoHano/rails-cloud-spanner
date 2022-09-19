@@ -6,6 +6,7 @@
 # kms 
 
 # secret: rails-master-key encrypt by kms
+# Step:1 create kms
 resource "google_kms_key_ring" "key_ring" {
   project  = data.google_project.default.project_id
   name     = "key-ring"
@@ -17,6 +18,7 @@ resource "google_kms_crypto_key" "crypto_key" {
   key_ring = google_kms_key_ring.key_ring.id
 }
 
+# Step:2 ecncrypt rails_master_key, and set ciphertext
 data "google_kms_secret" "rails_master_key" {
   crypto_key = google_kms_crypto_key.crypto_key.id
   # Must Replace!: echo -n $RAILS_MASTER_KEY | gcloud kms encrypt --location asia-northeast1 --keyring key-ring --key crypto-key --plaintext-file - --ciphertext-file - | base64
