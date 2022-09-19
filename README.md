@@ -35,7 +35,7 @@ make create_instance_production
 cd infra && terraform init
 ```
 
-### 1. Comment out google_kms_secret, google_secret_manager_secret, and google_secret_manager_secret_version
+### 1. Comment out secret resources
 ```hcl
 # comment out
 data "google_kms_secret" "rails_master_key" {
