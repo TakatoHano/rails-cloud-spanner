@@ -5,12 +5,13 @@ build_up: build up
 up: migrate
 	docker compose up -d spanner web_app
 
-init: create_instance build migrate
+init: create_instance create_db build migrate
 
 migrate:
 	docker compose run --rm web_app bundle exec rails db:migrate
 
 create_instance:
+	docker compose up -d spanner
 	docker compose run --rm create_instance
 
 create_db:
