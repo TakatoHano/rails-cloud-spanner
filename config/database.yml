@@ -7,7 +7,7 @@
 default: &default
   adapter: spanner
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  project: <%= ENV.fetch("GCP_PROJECT") %>
+  project: <%= ENV.fetch("GOOGLE_PROJECT") %>
   instance: <%= ENV.fetch("SPANNER_INSTANCE") %>
   timeout: 5000
 
@@ -18,4 +18,5 @@ development:
 
 production:
   <<: *default
+  emulator_host: <%= ENV.fetch("SPANNER_HOST") %>
   database: spanner_test
