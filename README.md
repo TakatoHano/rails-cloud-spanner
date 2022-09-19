@@ -25,8 +25,7 @@ export RAILS_MASTER_KEY=YOUR_MASTER_KEY
 
 ---
 # Create GCP Recources
-## Run once
-### create spanner free-trail-instance
+## Create Spanner free-trail-instance (run once)
 ```sh
 make create_instance_production
 ```
