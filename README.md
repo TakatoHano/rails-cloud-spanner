@@ -83,6 +83,11 @@ terraform apply -auto-approve
 ```
 
 ## Deploy App to GCP Cloud Run
+### Create Migrate Cloud Run Job(Run once)
+```sh
+make deploy_production
+```
+### Deploy(image build & push -> migrate -> service deploy)
 ```sh
 make deploy_production
 ```

@@ -20,7 +20,7 @@ create_db:
 build:
 	docker compose build
 
-deploy_production: build_and_push deploy_cloud_run
+deploy_production: build_and_push migrate_production deploy_cloud_run
 
 deploy_cloud_run:
 	gcloud run deploy rails-cloud-spanner \
@@ -33,8 +33,24 @@ deploy_cloud_run:
 	--max-instances=10 \
 	--allow-unauthenticated
 
+migrate_production:
+	gcloud beta run jobs update rails-spanner-migrate \
+	--image gcr.io/${PROJECT_ID}/rails-cloud-spanner \
+	--command=bundle,exec,rails,db:migrate \
+	--region ${REGION} \
+	--set-env-vars=PROJECT_ID=${PROJECT_ID},SPANNER_INSTANCE=trial-1,RAILS_ENV=production \
+	--set-secrets=RAILS_MASTER_KEY=rails-master-key:latest 
+	gcloud beta run jobs execute rails-spanner-migrate --region ${REGION}
+
 build_and_push:
 	gcloud builds submit --config cloudbuild.yaml
 
+# run once only!
 create_instance_production:
 	gcloud spanner instances create trial-1 --config=regional-${REGION} --instance-type=free-instance --description="traial-1"
+
+# run once only! image is gcp default.
+create_migrate_production_job:
+	gcloud beta run jobs create rails-spanner-migrate \
+	--image us-docker.pkg.dev/cloudrun/container/job:latest\
+	--region ${REGION}
