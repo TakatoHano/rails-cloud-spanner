@@ -42,7 +42,7 @@ migrate_production:
 	--region ${REGION} \
 	--set-env-vars=PROJECT_ID=${PROJECT_ID},SPANNER_INSTANCE=trial-1,RAILS_ENV=production \
 	--set-secrets=RAILS_MASTER_KEY=rails-master-key:latest 
-	gcloud beta run jobs execute rails-spanner-migrate --region ${REGION}
+	gcloud beta run jobs execute rails-spanner-migrate --region ${REGION} --wait
 
 build_and_push:
 	gcloud builds submit --config cloudbuild.yaml
