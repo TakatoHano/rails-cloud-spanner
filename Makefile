@@ -5,7 +5,7 @@ build_up: build up
 up: migrate
 	docker compose up -d web_app
 
-init: create_instance create_db build migrate
+init: create_instance create_db build up
 
 migrate:
 	docker compose run --rm web_app bundle exec rails db:migrate
