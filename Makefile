@@ -3,7 +3,7 @@ default: up
 build_up: build up
 
 up: migrate
-	docker compose up -d spanner web_app
+	docker compose up -d web_app
 
 init: create_instance create_db build migrate
 
