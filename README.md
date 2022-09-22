@@ -16,7 +16,7 @@ export PROJECT_ID=$GOOGLE_PROJECT
 # spanner free-trail instance support region
 # us-east5, europe-west3, asia-south2, asia-southeast2
 export REGION=us-east5
-export RAILS_MASTER_KEY=YOUR_MASTER_KEY
+export RAILS_MASTER_KEY=`cat config/master.key | tr -d \n `
 ```
 
 ## Database creation & initialization: `make init`
