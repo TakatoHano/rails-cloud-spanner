@@ -13,7 +13,7 @@ Sample rails app use ruby-spanner-activerecord
 export GOOGLE_APPLICATION_CREDENTIALS=YOUR_CREDENTIAL
 export GOOGLE_PROJECT=YOUR_PROJECT
 export PROJECT_ID=$GOOGLE_PROJECT
-# spanner free-trail instance support region
+# spanner free-trial instance support region
 # us-east5, europe-west3, asia-south2, asia-southeast2
 export REGION=us-east5
 export RAILS_MASTER_KEY=`cat config/master.key | tr -d \n `
@@ -25,7 +25,7 @@ export RAILS_MASTER_KEY=`cat config/master.key | tr -d \n `
 
 ---
 # Create GCP Recources
-## Create Spanner free-trail-instance (run once)
+## Create Spanner free-trial-instance (run once)
 ```sh
 make create_instance_production
 ```

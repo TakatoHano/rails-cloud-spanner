@@ -49,7 +49,7 @@ build_and_push:
 
 # run once only!
 create_instance_production:
-	gcloud spanner instances create trial-1 --config=regional-${REGION} --instance-type=free-instance --description="traial-1"
+	gcloud spanner instances create trial-1 --config=regional-${REGION} --instance-type=free-instance --description="trial-1"
 
 # run once only! image is gcp default.
 create_migrate_production_job:
