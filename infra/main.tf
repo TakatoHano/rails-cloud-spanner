@@ -42,7 +42,7 @@ resource "google_secret_manager_secret_version" "rails_master_key" {
 # Allow Access for Cloud Run's Service Agent
 resource "google_project_iam_member" "cloud_run_sa_spanner_access" {
   project = data.google_project.default.project_id
-  role    = "roles/spanner.databaseUser"
+  role    = "roles/spanner.databaseAdmin"
   member  = "serviceAccount:${data.google_project.default.number}-compute@developer.gserviceaccount.com"
 }
 
@@ -50,19 +50,6 @@ resource "google_project_iam_member" "cloud_run_sa_secret_access" {
   project = data.google_project.default.project_id
   role    = "roles/secretmanager.secretAccessor"
   member  = "serviceAccount:${data.google_project.default.number}-compute@developer.gserviceaccount.com"
-}
-
-# Allow Access for Cloud Build's Service Agent
-resource "google_project_iam_member" "cloud_build_sa_spanner_access" {
-  project = data.google_project.default.project_id
-  role    = "roles/spanner.databaseAdmin"
-  member  = "serviceAccount:${data.google_project.default.number}@cloudbuild.gserviceaccount.com"
-}
-
-resource "google_project_iam_member" "cloud_build_sa_secret_access" {
-  project = data.google_project.default.project_id
-  role    = "roles/secretmanager.secretAccessor"
-  member  = "serviceAccount:${data.google_project.default.number}@cloudbuild.gserviceaccount.com"
 }
 
 # Spanner
