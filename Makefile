@@ -23,7 +23,7 @@ build:
 deploy_production: build_and_push migrate_production deploy_cloud_run
 
 deploy_cloud_run:
-	gcloud run deploy rails-cloud-spanner \
+	gcloud beta run deploy rails-cloud-spanner \
 	--platform managed \
 	--region ${REGION} \
 	--image gcr.io/${PROJECT_ID}/rails-cloud-spanner \
@@ -32,6 +32,7 @@ deploy_cloud_run:
 	--port 3000 \
 	--concurrency=5 \
 	--max-instances=10 \
+	--cpu-boost \
 	--allow-unauthenticated
 
 migrate_production:
