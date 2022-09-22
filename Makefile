@@ -28,6 +28,7 @@ deploy_cloud_run:
 	--region ${REGION} \
 	--image gcr.io/${PROJECT_ID}/rails-cloud-spanner \
 	--set-env-vars=PROJECT_ID=${PROJECT_ID},SPANNER_INSTANCE=trial-1,RAILS_ENV=production \
+	--set-secrets=RAILS_MASTER_KEY=rails-master-key:latest \
 	--port 3000 \
 	--concurrency=5 \
 	--max-instances=10 \
